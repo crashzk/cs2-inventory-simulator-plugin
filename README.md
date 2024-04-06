@@ -1,6 +1,6 @@
 # [cs2.zkservidores.com](https://cs2.zkservidores.com)
 
-A simple plugin for integrating with [cs2.zkservidores.com](https://cs2.zkservidores.com). It features all we know (publically) so far to give economy items in-game.
+A simple plugin for integrating with [cs2.zkservidores.com](https://cs2.zkservidores.com).
 
 ##### Fork: [CS2 Inventory Simulator Plugin](https://github.com/ianlucas/cs2-inventory-simulator-plugin)
 
@@ -55,3 +55,4 @@ A simple plugin for integrating with [cs2.zkservidores.com](https://cs2.zkservid
 	- `0` - All agents allowed.
 	- `1` - Default agents for the current map. **Note:** Currently the same as `2` as Valve has not yet added them back.
 	- `2` - Only SAS and Phoenix agents allowed.
+	
