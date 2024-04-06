@@ -1,6 +1,8 @@
-# CS2 Inventory Simulator Plugin
+# [cs2.zkservidores.com](https://cs2.zkservidores.com)
 
-A simple plugin for integrating with [CS2 Inventory Simulator](https://inventory.cstrike.app). It features all we know (publically) so far to give economy items in-game.
+A simple plugin for integrating with [cs2.zkservidores.com](https://cs2.zkservidores.com). It features all we know (publically) so far to give economy items in-game.
+
+##### Fork: [CS2 Inventory Simulator Plugin](https://github.com/ianlucas/cs2-inventory-simulator-plugin)
 
 > [!CAUTION]
 > This plugin has not been fully and thoroughly tested. Compatibility with other plugins has also not been tested. Your server can be banned by Valve for using this plugin, [see the server guidelines](https://blog.counter-strike.net/index.php/server_guidelines). Use at your own risk.
@@ -17,16 +19,6 @@ A simple plugin for integrating with [CS2 Inventory Simulator](https://inventory
   - Patches.
 - Music Kit
 - Pins
-
-## Feature Roadmap
-
-- ⛔ Graffiti
-
-> [!IMPORTANT]  
-> ⛔ indicates that I'm unaware of a way to modify using CSSharp or C++ and that it's highly unlikely to be implemented anytime soon.
-
-> [!WARNING]  
-> Currently, I'm accepting issue reports, but please refrain from opening feature requests or suggestion issues as they will be closed. While I may consider your comments, the issue will remain closed.
 
 ## Installation
 
@@ -63,15 +55,3 @@ A simple plugin for integrating with [CS2 Inventory Simulator](https://inventory
 	- `0` - All agents allowed.
 	- `1` - Default agents for the current map. **Note:** Currently the same as `2` as Valve has not yet added them back.
 	- `2` - Only SAS and Phoenix agents allowed.
-
-### Commands?
-
-Not at the moment. I'm considering adding a command for refreshing the inventory, but it's not high priority for me. Since I'll be using this during competitive matches, I don't want players to be able to change skins mid-game. Currently, skins are only fetched when a player connects to the server.
-
-### Known Issues
-
-* MVP theme does not play for music kits.
-
-## See also
-
-If you are looking for a plugin that gives you more control, please see [cs2-WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints).
