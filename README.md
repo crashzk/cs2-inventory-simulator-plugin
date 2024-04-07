@@ -19,22 +19,22 @@ A simple plugin for integrating with [cs2.zkservidores.com](https://cs2.zkservid
 - Pins
 
 ## Configuration
-##### ConVar `css_inventory_simulator` 
+#### `css_inventory_simulator` 
 Host of Inventory Simulator's API.
 - **Type:** `string`
 - **Default:** `cs2.zkservidores.com`
 
-##### ConVar `css_inventory_simulator_apikey`
+#### `css_inventory_simulator_apikey`
 API Key for Inventory Simulator.
 - **Type:** `string`
 - **Default:** _empty_
 
-##### ConVar `css_stattrak_ignore_bots`
+#### `css_stattrak_ignore_bots`
 Determines whether to ignore StatTrak increments for bot kills.
 - **Type:** `bool`
 - **Default:** `true`
 
-##### ConVar `css_minmodels`
+#### `css_minmodels`
 Limits the number of custom models allowed in-game.
 - **Type:** `int`
 - **Default:** `0`
