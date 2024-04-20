@@ -16,6 +16,7 @@ A simple plugin for integrating with [cs2.zkservidores.com](https://cs2.zkservid
 - Agents
   - Patches.
 - Music Kit
+  - StatTrak (with increment). 
 - Pins
 
 ## Configuration
@@ -38,8 +39,8 @@ Determines whether to ignore StatTrak increments for bot kills.
 Limits the number of custom models allowed in-game.
 - **Type:** `int`
 - **Default:** `0`
-- **Values:**
+* **Values:**
 	- `0` - All agents allowed.
-	- `1` - Default agents for the current map. **Note:** Currently the same as `2` as Valve has not yet added them back.
+	- `1` - Default agents for the current map. **Note:** Same as `2` as Valve has not yet added them back.
 	- `2` - Only SAS and Phoenix agents allowed.
 	

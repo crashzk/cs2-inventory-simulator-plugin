@@ -6,7 +6,6 @@
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Core.Attributes;
 using CounterStrikeSharp.API.Core;
-using CounterStrikeSharp.API.Modules.Cvars.Validators;
 using CounterStrikeSharp.API.Modules.Cvars;
 using CounterStrikeSharp.API.Modules.Memory.DynamicFunctions;
 using CounterStrikeSharp.API.Modules.Memory;
@@ -15,13 +14,13 @@ using System.Runtime.InteropServices;
 
 namespace InventorySimulator;
 
-[MinimumApiVersion(197)]
+[MinimumApiVersion(211)]
 public partial class InventorySimulator : BasePlugin
 {
     public override string ModuleAuthor => "Ian Lucas & crashzk";
     public override string ModuleDescription => "Inventory Simulator (cs2.zkservidores.com)";
     public override string ModuleName => "InventorySimulator";
-    public override string ModuleVersion => "1.0.0-beta.17";
+    public override string ModuleVersion => "1.0.0-beta.21";
 
     private readonly string InventoryFilePath = "csgo/css_inventories.json";
     private readonly Dictionary<ulong, PlayerInventory> InventoryManager = new();
@@ -37,6 +36,10 @@ public partial class InventorySimulator : BasePlugin
     public FakeConVar<bool> StatTrakIgnoreBotsCvar = new("css_stattrak_ignore_bots", "Determines whether to ignore StatTrak increments for bot kills.", true);
     public FakeConVar<int> MinModelsCvar = new("css_minmodels", "Limits the number of custom models allowed in-game.", 0, flags: ConVarFlags.FCVAR_NONE, new RangeValidator<int>(0, 2));
 
+    public readonly FakeConVar<bool> StatTrakIgnoreBotsCvar = new("css_stattrak_ignore_bots", "Determines whether to ignore StatTrak increments for bot kills.", true);
+    
+    public readonly bool IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
     public override void Load(bool hotReload)
     {
         LoadPlayerInventories();
@@ -46,7 +49,7 @@ public partial class InventorySimulator : BasePlugin
             // Since the OnGiveNamedItemPost hook doesn't function reliably on Windows, we've opted to use the
             // OnEntityCreated hook instead. This approach should work adequately for standard game modes. However,
             // plugins might encounter compatibility issues if they frequently alter items, as observed in the
-            // MatchZy knife round, for example.
+            // MatchZy knife round, for example. (See CounterStrikeSharp#377)
             RegisterListener<Listeners.OnEntityCreated>(OnEntityCreated);
         }
         else
@@ -65,6 +68,8 @@ public partial class InventorySimulator : BasePlugin
             // have changed a weapon entity to avoid changing its attributes again.
             RegisterListener<Listeners.OnEntityCreated>(OnEntityCreated);
         }
+
+        RegisterListener<Listeners.OnTick>(OnTick);
     }
 
     [GameEventHandler]
@@ -101,7 +106,6 @@ public partial class InventorySimulator : BasePlugin
             return HookResult.Continue;
 
         var inventory = GetPlayerInventory(player);
-        GivePlayerMusicKit(player, inventory);
         GivePlayerAgent(player, inventory);
         GivePlayerGloves(player, inventory);
         GivePlayerPin(player, inventory);
@@ -120,7 +124,19 @@ public partial class InventorySimulator : BasePlugin
         if ((StatTrakIgnoreBotsCvar.Value ? !IsPlayerHumanAndValid(victim) : !IsPlayerValid(victim)) || !IsPlayerPawnValid(victim))
             return HookResult.Continue;
 
-        GivePlayerStatTrakIncrease(attacker, @event.Weapon, @event.WeaponItemid);
+        GivePlayerWeaponStatTrakIncrease(attacker, @event.Weapon, @event.WeaponItemid);
+
+        return HookResult.Continue;
+    }
+
+    [GameEventHandler(HookMode.Pre)]
+    public HookResult OnRoundMvp(EventRoundMvp @event, GameEventInfo _)
+    {
+        CCSPlayerController? player = @event.Userid;
+        if (!IsPlayerHumanAndValid(player) || !IsPlayerPawnValid(player))
+            return HookResult.Continue;
+
+        GivePlayerMusicKitStatTrakIncrease(player);
 
         return HookResult.Continue;
     }
@@ -132,11 +148,19 @@ public partial class InventorySimulator : BasePlugin
         if (IsPlayerHumanAndValid(player))
         {
             RemovePlayerInventory(player.SteamID);
+            ClearInventoryManager();
         }
 
-        PlayerInventoryCleanUp();
-
         return HookResult.Continue;
+    }
+
+    public void OnTick()
+    {
+        // Those familiar with the proper method of modification might find amusement in our temporary fix and
+        // workaround, which appears to be effective. (However, we're uncertain whether other players can hear
+        // the MVP sound, which needs verification.)
+        foreach (var player in Utilities.GetPlayers())
+            GivePlayerMusicKit(player);
     }
 
     public void OnEntityCreated(CEntityInstance entity)
