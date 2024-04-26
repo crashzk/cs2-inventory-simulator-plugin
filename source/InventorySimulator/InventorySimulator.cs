@@ -14,13 +14,13 @@ using System.Runtime.InteropServices;
 
 namespace InventorySimulator;
 
-[MinimumApiVersion(211)]
+[MinimumApiVersion(215)]
 public partial class InventorySimulator : BasePlugin
 {
     public override string ModuleAuthor => "Ian Lucas & crashzk";
     public override string ModuleDescription => "Inventory Simulator (cs2.zkservidores.com)";
     public override string ModuleName => "InventorySimulator";
-    public override string ModuleVersion => "1.0.0-beta.21";
+    public override string ModuleVersion => "1.0.0-beta.22";
 
     private readonly string InventoryFilePath = "csgo/css_inventories.json";
     private readonly Dictionary<ulong, PlayerInventory> InventoryManager = new();
