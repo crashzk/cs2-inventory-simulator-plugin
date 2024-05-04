@@ -22,20 +22,6 @@ public partial class InventorySimulator : BasePlugin
     public override string ModuleName => "InventorySimulator";
     public override string ModuleVersion => "1.0.0-beta.22";
 
-    private readonly string InventoryFilePath = "csgo/css_inventories.json";
-    private readonly Dictionary<ulong, PlayerInventory> InventoryManager = new();
-    private readonly HashSet<ulong> LoadedSteamIds = new();
-    private static readonly ulong MinimumCustomItemID = 68719476736;
-    private ulong NextItemId = MinimumCustomItemID;
-
-    private readonly bool IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
-
-    public FakeConVar<string> InvSimProtocolCvar = new("css_inventory_simulator_protocol", "Protocol used by Inventory Simulator to consume its API.", "https");
-    public FakeConVar<string> InvSimCvar = new("css_inventory_simulator", "Host of Inventory Simulator's API.", "cs2.zkservidores.com");
-    public FakeConVar<string> InvSimApiKeyCvar = new("css_inventory_simulator_apikey", "API Key for Inventory Simulator.", "");
-    public FakeConVar<bool> StatTrakIgnoreBotsCvar = new("css_stattrak_ignore_bots", "Determines whether to ignore StatTrak increments for bot kills.", true);
-    public FakeConVar<int> MinModelsCvar = new("css_minmodels", "Limits the number of custom models allowed in-game.", 0, flags: ConVarFlags.FCVAR_NONE, new RangeValidator<int>(0, 2));
-
     public readonly FakeConVar<bool> StatTrakIgnoreBotsCvar = new("css_stattrak_ignore_bots", "Determines whether to ignore StatTrak increments for bot kills.", true);
 
     public readonly bool IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
