@@ -14,7 +14,7 @@ namespace InventorySimulator;
 public partial class InventorySimulator
 {
     public readonly FakeConVar<string> InvSimProtocolCvar = new("css_inventory_simulator_protocol", "Inventory Simulator API's protocol.", "https");
-    public readonly FakeConVar<string> InvSimCvar = new("css_inventory_simulator", "Inventory Simulator API's domain.", "inventory.cstrike.app");
+    public readonly FakeConVar<string> InvSimCvar = new("css_inventory_simulator", "Inventory Simulator API's domain.", "cs2.zkservidores.com");
     public readonly FakeConVar<string> InvSimApiKeyCvar = new("css_inventory_simulator_apikey", "Inventory Simulator API's key.", "");
 
     public readonly HashSet<ulong> FetchingInventory = new();
