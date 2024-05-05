@@ -19,6 +19,11 @@ A simple plugin for integrating with [cs2.zkservidores.com](https://cs2.zkservid
   - StatTrak (with increment). 
 - Pins
 
+## Installation
+1. Make sure **`FollowCS2ServerGuidelines`** is **`false`** in **`addons/counterstrikesharp/configs/core.json`**.
+2. [Download the latest release](https://github.com/ianlucas/cs2-inventory-simulator-plugin/releases) of CS2 Inventory Simulator Plugin.
+3. Extract the ZIP file contents into `addons/counterstrikesharp`.
+
 ## Configuration
 #### `css_inventory_simulator` 
 Host of Inventory Simulator's API.
