@@ -39,11 +39,11 @@ Determines whether to ignore StatTrak increments for bot kills.
 Limits the number of custom models allowed in-game.
 - **Type:** `int`
 - **Default:** `0`
-* **Values:**
+- **Values:**
 	- `0` - All agents allowed.
 	- `1` - Default agents for the current map. **Note:** Same as `2` as Valve has not yet added them back.
 	- `2` - Only SAS and Phoenix agents allowed.
-
+	
 #### `css_give_custom_music_kit`
 Give custom Music Kit to players.
 - **Type:** `bool`
@@ -54,27 +54,26 @@ Give custom Pin to players.
 - **Type:** `bool`
 - **Default:** `true`
 
-#### `css_give_custom_gloves` ConVar
+#### `css_give_custom_gloves`
 Give custom Gloves to players.
 - **Type:** `bool`
 - **Default:** `true`
 
-#### `css_give_custom_agent` ConVar
+#### `css_give_custom_agent`
 Give custom Agent to players.
 - **Type:** `bool`
 - **Default:** `true`
 
-#### `css_give_custom_weapon` ConVar
+#### `css_give_custom_weapon`
 Give custom Weapon to players.
 - **Type:** `bool`
 - **Default:** `true`
 
-#### `css_give_weapon_stattrak_increase` ConVar
-Give Weapon StatTrak increase.
+#### `css_give_weapon_stattrak_increase`
 - **Type:** `bool`
 - **Default:** `true`
 
-#### `css_give_music_kit_stattrak_increase` ConVar
+#### `css_give_music_kit_stattrak_increase`
 Give Music Kit StatTrak increase.
 - **Type:** `bool`
 - **Default:** `true`

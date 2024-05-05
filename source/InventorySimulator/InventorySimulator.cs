@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 
 namespace InventorySimulator;
 
-[MinimumApiVersion(224)]
+[MinimumApiVersion(215)]
 public partial class InventorySimulator : BasePlugin
 {
     public override string ModuleAuthor => "Ian Lucas & crashzk";
@@ -45,10 +45,9 @@ public partial class InventorySimulator : BasePlugin
     public HookResult OnPlayerConnect(EventPlayerConnect @event, GameEventInfo _)
     {
         var player = @event.Userid;
-        if (
-            IsPlayerHumanAndValid(player) &&
-            player is { SteamID: var steamId })
+        if (player != null && IsPlayerHumanAndValid(player))
         {
+            var steamId = player.SteamID;
             FetchPlayerInventory(steamId);
         }
 
@@ -59,10 +58,9 @@ public partial class InventorySimulator : BasePlugin
     public HookResult OnPlayerConnectFull(EventPlayerConnectFull @event, GameEventInfo _)
     {
         var player = @event.Userid;
-        if (
-            IsPlayerHumanAndValid(player) &&
-            player is { SteamID: var steamId })
+        if (player != null && IsPlayerHumanAndValid(player))
         {
+            var steamId = player.SteamID;
             FetchPlayerInventory(steamId);
         }
 
@@ -73,9 +71,9 @@ public partial class InventorySimulator : BasePlugin
     public HookResult OnPlayerSpawn(EventPlayerSpawn @event, GameEventInfo _)
     {
         var player = @event.Userid;
-        if (
+        if (player != null &&
             IsPlayerHumanAndValid(player) &&
-            player is { PawnIsAlive: true })
+            IsPlayerPawnValid(player))
         {
             var inventory = GetPlayerInventory(player);
             GivePlayerAgent(player, inventory);
@@ -90,18 +88,19 @@ public partial class InventorySimulator : BasePlugin
     public HookResult OnPlayerDeath(EventPlayerDeath @event, GameEventInfo _)
     {
         var attacker = @event.Attacker;
-        var isValidAttacker = IsPlayerHumanAndValid(attacker);
         var victim = @event.Userid;
-        var isValidVictim = (
-            StatTrakIgnoreBotsCvar.Value
-                ? IsPlayerHumanAndValid(victim)
-                : IsPlayerValid(victim));
-        if (
-            isValidAttacker &&
-            isValidVictim &&
-            attacker is { Connected: PlayerConnectedState.PlayerConnected })
+        if (attacker != null && victim != null)
         {
-            GivePlayerWeaponStatTrakIncrease(attacker, @event.Weapon, @event.WeaponItemid);
+            var isValidAttacker = IsPlayerHumanAndValid(attacker) && !IsPlayerPawnValid(attacker);
+            var isValidVictim = (
+                StatTrakIgnoreBotsCvar.Value
+                    ? IsPlayerHumanAndValid(victim)
+                    : IsPlayerValid(victim)) &&
+                IsPlayerPawnValid(victim);
+            if (isValidAttacker && isValidVictim)
+            {
+                GivePlayerWeaponStatTrakIncrease(attacker, @event.Weapon, @event.WeaponItemid);
+            }
         }
 
         return HookResult.Continue;
@@ -111,9 +110,9 @@ public partial class InventorySimulator : BasePlugin
     public HookResult OnRoundMvp(EventRoundMvp @event, GameEventInfo _)
     {
         var player = @event.Userid;
-        if (
+        if (player != null &&
             IsPlayerHumanAndValid(player) &&
-            player is { Connected: PlayerConnectedState.PlayerConnected })
+            IsPlayerPawnValid(player))
         {
             GivePlayerMusicKitStatTrakIncrease(player);
         }
@@ -125,11 +124,9 @@ public partial class InventorySimulator : BasePlugin
     public HookResult OnPlayerDisconnect(EventPlayerDisconnect @event, GameEventInfo _)
     {
         var player = @event.Userid;
-        if (
-            IsPlayerHumanAndValid(player) &&
-            player is { SteamID: var steamId })
+        if (player != null && IsPlayerHumanAndValid(player))
         {
-            RemovePlayerInventory(steamId);
+            RemovePlayerInventory(player.SteamID);
             ClearInventoryManager();
         }
 
@@ -148,6 +145,7 @@ public partial class InventorySimulator : BasePlugin
     public void OnEntityCreated(CEntityInstance entity)
     {
         var designerName = entity.DesignerName;
+
         if (designerName.Contains("weapon"))
         {
             Server.NextFrame(() =>
@@ -174,7 +172,9 @@ public partial class InventorySimulator : BasePlugin
         var player = GetPlayerFromItemServices(itemServices);
 
         if (player != null)
+        {
             GivePlayerWeaponSkin(player, weapon);
+        }
 
         return HookResult.Continue;
     }
