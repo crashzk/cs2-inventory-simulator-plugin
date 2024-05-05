@@ -1,7 +1,7 @@
 {
-  "invsim.announce": "[ {darkred}Skinchanger {default}] Acesse seu inventário em {green}{0}",
-  "invsim.ws_new": "[ {darkred}Skinchanger {default}] Seu inventário será atualizado em instantes...",
-  "invsim.ws_in_progress": "[ {darkred}Skinchanger {default}] Seu inventário está sendo atualizado, aguarde...",
-  "invsim.ws_cooldown": "[ {darkred}Skinchanger {default}] {darkred}Você não pode atualizar seu inventário agora. Aguarde {0} segundos!",
+  "invsim.announce": "[ {darkred}Skinchanger {default}] Altere suas Skins, Faca & Luvas em nosso site {green}- {0}",
+  "invsim.ws_new": "[ {darkred}Skinchanger {default}] Seu inventário será atualizado em instantes.",
+  "invsim.ws_in_progress": "[ {darkred}Skinchanger {default}] Seu inventário está sendo atualizado, aguarde.",
+  "invsim.ws_cooldown": "[ {darkred}Skinchanger {default}] {darkred}Você não pode atualizar seu inventário agora! Aguarde {0} segundos.!",
   "invsim.ws_completed": "[ {darkred}Skinchanger {default}] {green}Seu inventário foi atualizado!"
 }

@@ -1,7 +1,7 @@
 {
-  "invsim.announce": "[ {darkred}Skinchanger {default}] Access your inventory at {green}{0}",
-  "invsim.ws_new": "[ {darkred}Skinchanger {default}] Your inventory will be refreshed shortly...",
-  "invsim.ws_in_progress": "[ {darkred}Skinchanger {default}] Your inventory is being refreshed, please wait...",
-  "invsim.ws_cooldown": "[ {darkred}Skinchanger {default}] {darkred}You cannot refresh your inventory right now. Please wait {0} seconds!",
+  "invsim.announce": "[ {darkred}Skinchanger {default}]Change your Skins, Knife & Gloves on our website {green}- {0}",
+  "invsim.ws_new": "[ {darkred}Skinchanger {default}] Your inventory will be refreshed shortly.",
+  "invsim.ws_in_progress": "[ {darkred}Skinchanger {default}] Your inventory is being refreshed, please wait.",
+  "invsim.ws_cooldown": "[ {darkred}Skinchanger {default}] {darkred}You cannot refresh your inventory right now! Please wait {0} seconds.",
   "invsim.ws_completed": "[ {darkred}Skinchanger {default}] {green}Your inventory have been refreshed!"
 }
