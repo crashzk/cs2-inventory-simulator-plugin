@@ -13,7 +13,7 @@ namespace InventorySimulator;
 
 public partial class InventorySimulator
 {
-    public FakeConVar<int> invsim_minmodels = new("invsim_minmodels", "Allows agents or use specific models for each team.", 0, flags: ConVarFlags.FCVAR_NONE, new RangeValidator<int>(0, 2));
+    public readonly FakeConVar<int> invsim_minmodels = new("invsim_minmodels", "Allows agents or use specific models for each team.", 0, flags: ConVarFlags.FCVAR_NONE, new RangeValidator<int>(0, 2));
 
     public void GivePlayerMusicKit(CCSPlayerController player)
     {
@@ -46,17 +46,13 @@ public partial class InventorySimulator
 
     public void GivePlayerGloves(CCSPlayerController player, PlayerInventory inventory)
     {
-        if (player.PlayerPawn.Value!.Handle == IntPtr.Zero)
-        {
-            // Some plugin or specific game scenario is throwing exceptions at this point whenever we try to access
-            // any member from the Player Pawn. We perform the actual check that triggers the exception. (I've
-            // tried catching it in the past, but it seems it won't work...)
+        var pawn = player.PlayerPawn.Value;
+        if (pawn == null || pawn.Handle == IntPtr.Zero)
             return;
-        }
 
         if (inventory.Gloves.TryGetValue(player.TeamNum, out var item))
         {
-            var glove = player.PlayerPawn.Value.EconGloves;
+            var glove = pawn.EconGloves;
             Server.NextFrame(() =>
             {
                 glove.Initialized = true;
@@ -73,7 +69,7 @@ public partial class InventorySimulator
                 SetOrAddAttributeValueByName(glove.AttributeList.Handle, "set item texture seed", item.Seed);
                 SetOrAddAttributeValueByName(glove.AttributeList.Handle, "set item texture wear", item.Wear);
 
-                SetBodygroup(player.PlayerPawn.Value.Handle, "default_gloves", 1);
+                SetBodygroup(pawn.Handle, "default_gloves", 1);
             });
         }
     }
@@ -221,5 +217,19 @@ public partial class InventorySimulator
             musicKit.Stattrak += 1;
             SendStatTrakIncrease(player.SteamID, musicKit.Uid);
         }
+    }
+
+    public void GiveOnPlayerSpawn(CCSPlayerController player)
+    {
+        var inventory = GetPlayerInventory(player);
+        GivePlayerPin(player, inventory);
+        GivePlayerAgent(player, inventory);
+        GivePlayerGloves(player, inventory);
+    }
+
+    public void GiveOnPlayerInventoryRefresh(CCSPlayerController player)
+    {
+        var inventory = GetPlayerInventory(player);
+        GivePlayerPin(player, inventory);
     }
 }
