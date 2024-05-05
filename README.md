@@ -55,5 +55,4 @@ Cooldown in seconds between player inventory refreshes.
 - **Default:** `30`
 
 ## Commands
-#### `!ws`
-* Prints Inventory Simulator's website and refreshes player's inventory if `invsim_ws_enabled` ConVar is `true`.
+- `!ws` - Prints Inventory Simulator's website and refreshes player's inventory if `invsim_ws_enabled` ConVar is `true`.
