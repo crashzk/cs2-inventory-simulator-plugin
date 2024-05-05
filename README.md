@@ -13,11 +13,11 @@ A simple CounterStrikeSharp plugin for integration with [cs2.zkservidores.com](h
   - Paint Kit, Wear, Seed, Name tag, and StatTrak (with increment).
 - Gloves
   - Paint Kit, Wear, Seed.
-- Agents
+- Agent
   - Patches.
 - Music Kit
   - StatTrak (with increment). 
-- Pins
+- Pin
 
 ## Configuration
 #### `invsim_hostname`
