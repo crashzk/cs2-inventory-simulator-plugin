@@ -17,7 +17,7 @@ namespace InventorySimulator;
 [MinimumApiVersion(215)]
 public partial class InventorySimulator : BasePlugin
 {
-    public override string ModuleAuthor => "Ian Lucas & crashzk";
+    public override string ModuleAuthor => "Ian Lucas";
     public override string ModuleDescription => "Inventory Simulator (cs2.zkservidores.com)";
     public override string ModuleName => "InventorySimulator";
     public override string ModuleVersion => "1.0.0-beta.22";
