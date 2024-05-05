@@ -16,7 +16,7 @@ public partial class InventorySimulator
     public readonly FakeConVar<string> invsim_protocol = new("invsim_protocol", "Inventory Simulator API's protocol.", "https");
     public readonly FakeConVar<string> invsim_hostname = new("invsim_hostname", "Inventory Simulator API's domain.", "cs2.zkservidores.com");
     public readonly FakeConVar<string> invsim_apikey = new("invsim_apikey", "Inventory Simulator API's key.", "");
-	
+
     public readonly HashSet<ulong> FetchingInventory = new();
 
     public string GetApiUrl(string pathname)
