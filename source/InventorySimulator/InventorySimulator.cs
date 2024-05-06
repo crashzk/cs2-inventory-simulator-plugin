@@ -6,12 +6,12 @@
 using CounterStrikeSharp.API.Core.Attributes.Registration;
 using CounterStrikeSharp.API.Core.Attributes;
 using CounterStrikeSharp.API.Core;
+using CounterStrikeSharp.API.Modules.Commands;
 using CounterStrikeSharp.API.Modules.Cvars;
 using CounterStrikeSharp.API.Modules.Memory.DynamicFunctions;
 using CounterStrikeSharp.API.Modules.Memory;
 using CounterStrikeSharp.API;
 using System.Runtime.InteropServices;
-using CounterStrikeSharp.API.Modules.Commands;
 
 namespace InventorySimulator;
 
@@ -21,7 +21,7 @@ public partial class InventorySimulator : BasePlugin
     public override string ModuleAuthor => "Ian Lucas";
     public override string ModuleDescription => "Inventory Simulator (cs2.zkservidores.com)";
     public override string ModuleName => "InventorySimulator";
-    public override string ModuleVersion => "1.0.0-beta.23";
+    public override string ModuleVersion => "1.0.0-beta.24";
 
     public readonly bool IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
     public readonly Dictionary<ulong, long> PlayerCooldownManager = new();
@@ -78,6 +78,23 @@ public partial class InventorySimulator : BasePlugin
             IsPlayerPawnValid(player))
         {
             GiveOnPlayerSpawn(player);
+        }
+
+        return HookResult.Continue;
+    }
+
+    [GameEventHandler]
+    public HookResult OnItemPickup(EventItemPickup @event, GameEventInfo _)
+    {
+        if (IsWindows)
+        {
+            var player = @event.Userid;
+            if (player != null &&
+                IsPlayerHumanAndValid(player) &&
+                IsPlayerPawnValid(player))
+            {
+                GiveOnItemPickup(player);
+            }
         }
 
         return HookResult.Continue;
