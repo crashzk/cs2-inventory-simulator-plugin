@@ -4,8 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 using CounterStrikeSharp.API.Core;
-using CounterStrikeSharp.API.Modules.Cvars.Validators;
-using CounterStrikeSharp.API.Modules.Cvars;
 using CounterStrikeSharp.API.Modules.Utils;
 using CounterStrikeSharp.API;
 
@@ -13,13 +11,11 @@ namespace InventorySimulator;
 
 public partial class InventorySimulator
 {
-    public readonly FakeConVar<int> invsim_minmodels = new("invsim_minmodels", "Allows agents or use specific models for each team.", 0, flags: ConVarFlags.FCVAR_NONE, new RangeValidator<int>(0, 2));
-
     public void GivePlayerMusicKit(CCSPlayerController player)
     {
         if (!IsPlayerHumanAndValid(player)) return;
         if (player.InventoryServices == null) return;
-        if (MusicKitManager.TryGetValue(player.SteamID, out var musicKit))
+        if (PlayerMusicKitManager.TryGetValue(player.SteamID, out var musicKit))
         {
             player.InventoryServices.MusicID = (ushort)musicKit.Def;
             Utilities.SetStateChanged(player, "CCSPlayerController", "m_pInventoryServices");
@@ -163,32 +159,25 @@ public partial class InventorySimulator
         }
     }
 
-    public void GivePlayerWeaponStatTrakIncrease(
+    public void GivePlayerWeaponStatTrakIncrement(
         CCSPlayerController player,
         string designerName,
         string weaponItemId)
     {
         try
         {
-            var weaponServices = player.PlayerPawn.Value!.WeaponServices;
-            if (weaponServices == null || weaponServices.ActiveWeapon == null)
-                return;
+            var weapon = player.PlayerPawn.Value?.WeaponServices?.ActiveWeapon.Value;
 
-            if (weaponServices.ActiveWeapon.Value == null || !weaponServices.ActiveWeapon.IsValid)
+            if (
+                weapon == null ||
+                !IsCustomWeaponItemID(weapon) ||
+                weapon.FallbackStatTrak < 0 ||
+                weapon.AttributeManager.Item.AccountID != (uint)player.SteamID ||
+                weapon.AttributeManager.Item.ItemID != ulong.Parse(weaponItemId) ||
+                weapon.FallbackStatTrak >= 999_999)
+            {
                 return;
-
-            var weapon = weaponServices.ActiveWeapon.Value;
-            if (!IsCustomWeaponItemID(weapon) || weapon.FallbackStatTrak < 0)
-                return;
-
-            if (weapon.AttributeManager.Item.AccountID != (uint)player.SteamID)
-                return;
-
-            if (weapon.AttributeManager.Item.ItemID != ulong.Parse(weaponItemId))
-                return;
-
-            if (weapon.FallbackStatTrak >= 999_999)
-                return;
+            }
 
             var isKnife = IsKnifeClassName(designerName);
             var newValue = weapon.FallbackStatTrak + 1;
@@ -201,7 +190,7 @@ public partial class InventorySimulator
             if (item != null)
             {
                 item.Stattrak = newValue;
-                SendStatTrakIncrease(player.SteamID, item.Uid);
+                SendStatTrakIncrement(player.SteamID, item.Uid);
             }
         }
         catch
@@ -210,12 +199,12 @@ public partial class InventorySimulator
         }
     }
 
-    public void GivePlayerMusicKitStatTrakIncrease(CCSPlayerController player)
+    public void GivePlayerMusicKitStatTrakIncrement(CCSPlayerController player)
     {
-        if (MusicKitManager.TryGetValue(player.SteamID, out var musicKit))
+        if (PlayerMusicKitManager.TryGetValue(player.SteamID, out var musicKit))
         {
             musicKit.Stattrak += 1;
-            SendStatTrakIncrease(player.SteamID, musicKit.Uid);
+            SendStatTrakIncrement(player.SteamID, musicKit.Uid);
         }
     }
 
@@ -227,7 +216,7 @@ public partial class InventorySimulator
         GivePlayerGloves(player, inventory);
     }
 
-    public void GiveOnPlayerInventoryRefresh(CCSPlayerController player)
+    public void GiveOnRefreshPlayerInventory(CCSPlayerController player)
     {
         var inventory = GetPlayerInventory(player);
         GivePlayerPin(player, inventory);

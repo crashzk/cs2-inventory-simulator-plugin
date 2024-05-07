@@ -5,7 +5,6 @@
 
 using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
-using CounterStrikeSharp.API.Modules.Cvars;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System.Net;
@@ -15,12 +14,6 @@ namespace InventorySimulator;
 
 public partial class InventorySimulator
 {
-    public readonly FakeConVar<string> invsim_protocol = new("invsim_protocol", "Inventory Simulator API's protocol.", "https");
-    public readonly FakeConVar<string> invsim_hostname = new("invsim_hostname", "Inventory Simulator API's hostname.", "cs2.zkservidores.com");
-    public readonly FakeConVar<string> invsim_apikey = new("invsim_apikey", "Inventory Simulator API's key.", "");
-
-    public readonly HashSet<ulong> FetchingPlayerInventory = new();
-
     public string GetApiUrl(string pathname = "")
     {
         return $"{invsim_protocol.Value}://{invsim_hostname.Value}{pathname}";
@@ -66,7 +59,7 @@ public partial class InventorySimulator
 
     public async Task FetchPlayerInventory(ulong steamId, bool force = false)
     {
-        if (!force && InventoryManager.ContainsKey(steamId))
+        if (!force && PlayerInventoryManager.ContainsKey(steamId))
             return;
 
         if (FetchingPlayerInventory.Contains(steamId))
@@ -111,11 +104,11 @@ public partial class InventorySimulator
         Server.NextFrame(() =>
         {
             player.PrintToChat(Localizer["invsim.ws_completed"]);
-            GiveOnPlayerInventoryRefresh(player);
+            GiveOnRefreshPlayerInventory(player);
         });
     }
 
-    public async void SendStatTrakIncrease(ulong userId, int targetUid)
+    public async void SendStatTrakIncrement(ulong userId, int targetUid)
     {
         if (invsim_apikey.Value == "")
             return;
