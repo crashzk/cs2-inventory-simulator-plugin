@@ -9,13 +9,13 @@ using CounterStrikeSharp.API.Modules.Memory;
 
 namespace InventorySimulator;
 
-[MinimumApiVersion(227)]
+[MinimumApiVersion(234)]
 public partial class InventorySimulator : BasePlugin
 {
     public override string ModuleAuthor => "Ian Lucas";
     public override string ModuleDescription => "Inventory Simulator (cs2.zkservidores.com)";
     public override string ModuleName => "InventorySimulator";
-    public override string ModuleVersion => "1.0.0-beta.25";
+    public override string ModuleVersion => "1.0.0-beta.26";
 
     public override void Load(bool hotReload)
     {

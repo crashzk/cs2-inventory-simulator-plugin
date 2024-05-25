@@ -3,8 +3,8 @@ A simple CounterStrikeSharp plugin for integration with [cs2.zkservidores.com](h
 
 ##### Fork: [CS2 Inventory Simulator Plugin](https://github.com/ianlucas/cs2-inventory-simulator-plugin)
 
-> [!CAUTION]
-> Your server can be banned by Valve for using this plugin, [see the server guidelines](https://blog.counter-strike.net/index.php/server_guidelines). Use at your own risk.
+> [!CAUTION]  
+> This plugin tries its best to be compatible with most of the plugins. Your server can be banned by Valve for using this plugin (see the [server guidelines](https://blog.counter-strike.net/index.php/server_guidelines)) and the plugin may be broken or nuked by any game update. Use at your own risk.
 
 ## Current Features
 - Weapon
