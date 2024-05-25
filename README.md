@@ -1,5 +1,5 @@
 # [cs2.zkservidores.com](https://cs2.zkservidores.com)
-A simple CounterStrikeSharp plugin for integration with [cs2.zkservidores.com](https://cs2.zkservidores.com).
+A CounterStrikeSharp plugin for integration with [cs2.zkservidores.com](https://cs2.zkservidores.com).
 
 ##### Fork: [CS2 Inventory Simulator Plugin](https://github.com/ianlucas/cs2-inventory-simulator-plugin)
 
