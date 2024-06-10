@@ -15,7 +15,7 @@ public partial class InventorySimulator : BasePlugin
     public override string ModuleAuthor => "Ian Lucas";
     public override string ModuleDescription => "Inventory Simulator (cs2.zkservidores.com)";
     public override string ModuleName => "InventorySimulator";
-    public override string ModuleVersion => "1.0.0-beta.28";
+    public override string ModuleVersion => "1.0.0";
 
     public override void Load(bool hotReload)
     {
@@ -30,5 +30,12 @@ public partial class InventorySimulator : BasePlugin
 
         RegisterListener<Listeners.OnTick>(OnTick);
         RegisterListener<Listeners.OnEntityCreated>(OnEntityCreated);
+        RegisterEventHandler<EventPlayerConnect>(OnPlayerConnect);
+        RegisterEventHandler<EventPlayerConnectFull>(OnPlayerConnectFull);
+        RegisterEventHandler<EventPlayerSpawn>(OnPlayerSpawn);
+        RegisterEventHandler<EventItemPickup>(OnItemPickup);
+        RegisterEventHandler<EventPlayerDeath>(OnPlayerDeathPre, HookMode.Pre);
+        RegisterEventHandler<EventRoundMvp>(OnRoundMvpPre, HookMode.Pre);
+        RegisterEventHandler<EventPlayerDisconnect>(OnPlayerDisconnect);
     }
 }
