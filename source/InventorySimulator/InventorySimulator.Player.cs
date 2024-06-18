@@ -40,9 +40,12 @@ public partial class InventorySimulator
     public void AddPlayerInventory(ulong steamId, PlayerInventory inventory)
     {
         PlayerInventoryManager[steamId] = inventory;
-        if (inventory.MusicKit != null)
-            PlayerMusicKitManager[steamId] = inventory.MusicKit;
-        else PlayerMusicKitManager.Remove(steamId);
+        Server.NextFrame(() =>
+        {
+            if (inventory.MusicKit != null)
+                PlayerOnTickInventoryManager[steamId] = (Utilities.GetPlayerFromSteamId(steamId), inventory);
+            else PlayerOnTickInventoryManager.Remove(steamId);
+        });
     }
 
     public void ClearInventoryManager()
@@ -60,7 +63,11 @@ public partial class InventorySimulator
         if (!LoadedPlayerInventory.Contains(steamId))
         {
             PlayerInventoryManager.Remove(steamId);
-            PlayerMusicKitManager.Remove(steamId);
+            PlayerOnTickInventoryManager.Remove(steamId);
+        }
+        if (PlayerOnTickInventoryManager.TryGetValue(steamId, out var tuple))
+        {
+            PlayerOnTickInventoryManager[steamId] = (null, tuple.Item2);
         }
     }
 
