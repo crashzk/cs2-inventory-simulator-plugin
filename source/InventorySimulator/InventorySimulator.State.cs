@@ -7,7 +7,7 @@ using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Modules.Cvars;
 using CounterStrikeSharp.API.Modules.Cvars.Validators;
-using System.Runtime.InteropServices;
+using System.Collections.Concurrent;
 
 namespace InventorySimulator;
 
@@ -24,9 +24,9 @@ public partial class InventorySimulator
     public readonly HashSet<ulong> FetchingPlayerInventory = [];
     public readonly HashSet<ulong> LoadedPlayerInventory = [];
 
-    public readonly Dictionary<ulong, long> PlayerCooldownManager = [];
-    public readonly Dictionary<ulong, (CCSPlayerController?, PlayerInventory)> PlayerOnTickInventoryManager = [];
-    public readonly Dictionary<ulong, PlayerInventory> PlayerInventoryManager = [];
+    public readonly ConcurrentDictionary<ulong, long> PlayerCooldownManager = [];
+    public readonly ConcurrentDictionary<ulong, (CCSPlayerController?, PlayerInventory)> PlayerOnTickInventoryManager = [];
+    public readonly ConcurrentDictionary<ulong, PlayerInventory> PlayerInventoryManager = [];
 
     public readonly PlayerInventory EmptyInventory = new();
 
