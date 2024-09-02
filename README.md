@@ -16,5 +16,6 @@ A CounterStrikeSharp plugin for integration with [cs2.zkservidores.com](https://
 - Agents
   - Patches.
 - Music Kit
-  - StatTrak (with increment). 
+  - StatTrak (with increment).
 - Pins
+- Graffitis 
