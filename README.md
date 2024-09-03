@@ -18,4 +18,4 @@ A CounterStrikeSharp plugin for integration with [cs2.zkservidores.com](https://
 - Music Kit
   - StatTrak (with increment).
 - Pins
-- Graffitis 
+- Graffitis

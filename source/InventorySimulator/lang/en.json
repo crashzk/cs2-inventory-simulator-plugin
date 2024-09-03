@@ -4,4 +4,5 @@
   "invsim.ws_in_progress": "[ {darkred}Skinchanger {default}] Your inventory is being refreshed, please wait.",
   "invsim.ws_cooldown": "[ {darkred}Skinchanger {default}] {darkred}You cannot refresh your inventory right now! Please wait {0} seconds.",
   "invsim.ws_completed": "[ {darkred}Skinchanger {default}] {green}Your inventory have been refreshed!"
+  "invsim.spray_cooldown": "You cannot spray right now. Please wait {0} seconds."
 }
