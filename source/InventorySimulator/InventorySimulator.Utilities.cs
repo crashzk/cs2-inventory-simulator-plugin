@@ -3,28 +3,24 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
+using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 
 namespace InventorySimulator;
 
 public partial class InventorySimulator
 {
-    public string GetAgentModelPath(string model)
-    {
-        return $"characters/models/{model}.vmdl";
-    }
+    static CCSGameRulesProxy? GameRulesProxy;
 
-    public bool IsKnifeClassName(string className)
-    {
-        return className.Contains("bayonet") || className.Contains("knife");
-    }
+    public static string GetAgentModelPath(string model) =>
+        $"characters/models/{model}.vmdl";
 
-    public long Now()
-    {
-        return DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-    }
+    public static bool IsKnifeClassName(string className) =>
+        className.Contains("bayonet") || className.Contains("knife");
 
-    public float ViewAsFloat<T>(T value) where T : struct
+    public static long Now() => DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+    public static float ViewAsFloat<T>(T value) where T : struct
     {
         byte[] bytes = value switch
         {
@@ -35,19 +31,16 @@ public partial class InventorySimulator
         return BitConverter.ToSingle(bytes, 0);
     }
 
-    public bool IsGiveNextSpawn(CCSPlayerController player)
-    {
-        if (invsim_validate_spawn.Value && !PlayerInventoryManager.ContainsKey(player.SteamID))
-        {
-            PlayerGiveNextSpawn[player.SteamID] = true;
-            return true;
-        }
-        PlayerGiveNextSpawn.Remove(player.SteamID, out bool _);
-        return false;
-    }
-
-    public bool CanGivePlayer(CCSPlayerController player)
-    {
-        return !PlayerGiveNextSpawn.ContainsKey(player.SteamID);
-    }
+    public static CCSGameRules? GetGameRules() =>
+        (
+            GameRulesProxy?.IsValid == true
+                ? GameRulesProxy.GameRules
+                : (
+                    GameRulesProxy = Utilities
+                        .FindAllEntitiesByDesignerName<CCSGameRulesProxy>("cs_gamerules")
+                        .First()
+                )?.IsValid == true
+                    ? GameRulesProxy?.GameRules
+                    : null
+        );
 }
