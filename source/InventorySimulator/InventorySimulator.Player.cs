@@ -24,6 +24,7 @@ public partial class InventorySimulator
             var inventories = JsonSerializer.Deserialize<Dictionary<ulong, PlayerInventory>>(json);
             if (inventories != null)
             {
+                LoadedPlayerInventory.Clear();
                 foreach (var pair in inventories)
                 {
                     LoadedPlayerInventory.Add(pair.Key);
@@ -46,10 +47,18 @@ public partial class InventorySimulator
             if (inventory.MusicKit != null)
                 PlayerOnTickInventoryManager[steamId] = (player, inventory);
             else PlayerOnTickInventoryManager.Remove(steamId, out _);
-            var gameRules = GetGameRules();
-            var pawn = player?.PlayerPawn.Value;
-            if (gameRules != null && pawn != null && gameRules.FPlayerCanRespawn(pawn))
-                player?.Respawn();
+            AddTimer(1.0f, () =>
+            {
+                var gameRules = GetGameRules();
+                var pawn = player?.PlayerPawn.Value;
+                if (
+                    gameRules != null &&
+                    pawn != null &&
+                    pawn.IsValid &&
+                    pawn.LifeState != (int)LifeState_t.LIFE_ALIVE &&
+                    gameRules.FPlayerCanRespawn(pawn))
+                    player?.Respawn();
+            });
         });
     }
 
