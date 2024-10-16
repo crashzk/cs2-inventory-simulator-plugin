@@ -1,8 +1,8 @@
 ﻿{
-  "invsim.announce": "[ {darkred}Skinchanger {default}] Altere suas Skins, Faca & Luvas em nosso site {green}- {0}",
-  "invsim.ws_new": "[ {darkred}Skinchanger {default}] Seu inventário será atualizado em instantes.",
-  "invsim.ws_in_progress": "[ {darkred}Skinchanger {default}] Seu inventário está sendo atualizado, aguarde.",
-  "invsim.ws_cooldown": "[ {darkred}Skinchanger {default}] {darkred}Você não pode atualizar seu inventário agora! Aguarde {0} segundos.",
-  "invsim.ws_completed": "[ {darkred}Skinchanger {default}] {green}Seu inventário foi atualizado!",
-  "invsim.spray_cooldown": "Você não pode usar spray agora! Aguarde {0} segundos..."
+  "invsim.announce": "[ {darkred}ZK Servidores™ {default}] Altere suas Skins, Faca & Luvas em nosso site {green}- {0}",
+  "invsim.ws_new": "[ {darkred}ZK Servidores™ {default}] Seu inventário será atualizado em instantes.",
+  "invsim.ws_in_progress": "[ {darkred}ZK Servidores™ {default}] Seu inventário está sendo atualizado, aguarde.",
+  "invsim.ws_cooldown": "[ {darkred}ZK Servidores™ {default}] {darkred}Você não pode atualizar seu inventário agora! Aguarde {0} segundos.",
+  "invsim.ws_completed": "[ {darkred}ZK Servidores™ {default}] {green}Seu inventário foi atualizado!",
+  "invsim.spray_cooldown": "[ {darkred}ZK Servidores™ {default}] Você não pode usar spray agora! Aguarde {0} segundos..."
 }
