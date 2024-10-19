@@ -1,4 +1,4 @@
-# [cs2.zkservidores.com](https://cs2.zkservidores.com)
+﻿# [cs2.zkservidores.com](https://cs2.zkservidores.com)
 A CounterStrikeSharp plugin for integration with [cs2.zkservidores.com](https://cs2.zkservidores.com).
 
 ##### Fork: [CS2 Inventory Simulator Plugin](https://github.com/ianlucas/cs2-inventory-simulator-plugin)
@@ -19,3 +19,8 @@ A CounterStrikeSharp plugin for integration with [cs2.zkservidores.com](https://
   - StatTrak (with increment).
 - Pins
 - Graffitis
+
+## Commands
+
+- **`!ws`** - Prints Inventory Simulator's website and refreshes player's inventory.
+- `**!spray`** - Sprays player's graffiti in the nearest wall if possible. Players can bind to **`T`** key using **`bind t css_spray`**.
