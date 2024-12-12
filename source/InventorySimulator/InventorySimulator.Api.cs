@@ -93,7 +93,7 @@ public partial class InventorySimulator
                 // Try again to fetch data (up to 3 times).
             }
         }
-        
+
         FetchingPlayerInventory.Remove(steamId);
     }
 
