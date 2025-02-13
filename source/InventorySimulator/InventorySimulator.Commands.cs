@@ -39,7 +39,7 @@ public partial class InventorySimulator
         RefreshPlayerInventory(player, true);
         player.PrintToChat(Localizer["invsim.ws_new"]);
     }
-	
+
     [ConsoleCommand("css_spray", "Spray player's graffiti.")]
     public void OnSprayCommand(CCSPlayerController? player, CommandInfo _)
     {
