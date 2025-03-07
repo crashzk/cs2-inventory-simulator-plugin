@@ -79,8 +79,8 @@ public partial class InventorySimulator
 
     public void GivePlayerAgent(CCSPlayerController player, PlayerInventory inventory)
     {
-        //if (invsim_minmodels.Value > 0)
-        if (!AdminManager.PlayerHasPermissions(player, ["@css/vip"]))
+        if (invsim_minmodels.Value > 0)
+        if (AdminManager.PlayerHasPermissions(player, ["@css/vip"]))
         {
             // For now any value non-zero will force SAS & Phoenix.
             // In the future: 1 - Map agents only, 2 - SAS & Phoenix.
@@ -93,8 +93,9 @@ public partial class InventorySimulator
             return;
         }
 
-        //if (inventory.Agents.TryGetValue(player.TeamNum, out var item))
-        else if (inventory.Agents.TryGetValue(player.TeamNum, out var item))
+        if (inventory.Agents.TryGetValue(player.TeamNum, out var item))
+        // Modificação 1Maack - Precisamos do `else if`?
+        //else if (inventory.Agents.TryGetValue(player.TeamNum, out var item))
         {
             var patches = item.Patches.Count != 5 ? Enumerable.Repeat((uint)0, 5).ToList() : item.Patches;
             SetPlayerModel(player, GetAgentModelPath(item.Model), item.VoFallback, item.VoPrefix, item.VoFemale, patches);
