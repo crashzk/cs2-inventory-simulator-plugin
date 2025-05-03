@@ -7,6 +7,8 @@ A CounterStrikeSharp plugin for integration with [cs2.zkservidores.com](https://
 > Your server can be banned by Valve for using this plugin (see their [server guidelines](https://blog.counter-strike.net/index.php/server_guidelines)). Use at your own risk.
 
 ## Current Features
+- Select Team
+- Team Intro
 - Weapons
   - Paint Kit, Wear, Seed, Nametag, StatTrak ***(with increment)***, and Stickers.
 - Knives
