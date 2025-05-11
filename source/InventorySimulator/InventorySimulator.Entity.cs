@@ -28,7 +28,7 @@ public partial class InventorySimulator
         glove.AttributeList.SetOrAddAttributeValueByName("set item texture wear", item.Wear);
     }
 
-    public void ApplyWeaponAtrributesFromItem(CEconItemView item, WeaponEconItem weaponItem, CBasePlayerWeapon? weapon = null, CCSPlayerController? player = null)
+    public void ApplyWeaponAttributesFromItem(CEconItemView item, WeaponEconItem weaponItem, CBasePlayerWeapon? weapon = null, CCSPlayerController? player = null)
     {
         var isKnife = weapon?.DesignerName.IsKnifeClassName() ?? item.IsKnifeClassName();
         var entityDef = weapon?.AttributeManager.Item.ItemDefinitionIndex ?? item.ItemDefinitionIndex;
@@ -173,6 +173,8 @@ public partial class InventorySimulator
         {
             Server.NextFrame(() =>
             {
+                if (!player.IsValid)
+                    return;
                 var pawn = player.PlayerPawn.Value;
                 if (pawn == null)
                     return;
@@ -187,8 +189,11 @@ public partial class InventorySimulator
                 {
                     Server.NextFrame(() =>
                     {
-                        pawn.StrVOPrefix = voPrefix;
-                        pawn.HasFemaleVoice = voFemale;
+                        if (pawn.IsValid)
+                        {
+                            pawn.StrVOPrefix = voPrefix;
+                            pawn.HasFemaleVoice = voFemale;
+                        }
                     });
                 }
                 pawn.SetModel(model);
