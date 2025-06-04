@@ -4,5 +4,8 @@
 	"invsim.ws_in_progress": "[ {darkred}ZK Servidores™ {default}] Seu inventário está sendo atualizado, aguarde.",
 	"invsim.ws_cooldown": "[ {darkred}ZK Servidores™ {default}] {darkred}Você não pode atualizar seu inventário agora! Aguarde {green}{0} segundos{darkred}...",
 	"invsim.ws_completed": "[ {darkred}ZK Servidores™ {default}] {green}Seu inventário foi atualizado!",
-	"invsim.spray_cooldown": "[ {darkred}ZK Servidores™ {default}] {darkred}Você não pode usar spray agora! Aguarde {green}{0} segundos{darkred}..."
+	"invsim.spray_cooldown": "[ {darkred}ZK Servidores™ {default}] {darkred}Você não pode usar spray agora! Aguarde {green}{0} segundos{darkred}...",
+	"invsim.login_in_progress": "[ {darkred}ZK Servidores™ {default}] {green}Tentando autenticar ao seu inventário...",
+	"invsim.login": "[ {darkred}ZK Servidores™ {default}] Acesse {green}{0} {default}para ver seu inventário.",
+	"invsim.login_failed": "[ {darkred}ZK Servidores™ {default}] {darkred}Não foi possível autenticar ao seu inventário, tente novamente mais tarde."
 }
