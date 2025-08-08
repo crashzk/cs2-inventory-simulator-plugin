@@ -6,7 +6,6 @@
 using CounterStrikeSharp.API;
 using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Modules.Admin;
-using CounterStrikeSharp.API.Modules.Entities;
 using CounterStrikeSharp.API.Modules.Utils;
 
 namespace InventorySimulator;
@@ -75,7 +74,8 @@ public partial class InventorySimulator
                 if (pawn.IsValid)
                 {
                     ApplyGloveAttributesFromItem(glove, item);
-                    pawn.SetBodygroup("default_gloves", 1);
+                    // Thanks to xstage and stefanx111
+                    pawn.AcceptInput("SetBodygroup", value: "default_gloves,1");
                 }
             });
         }
@@ -317,8 +317,7 @@ public partial class InventorySimulator
         var trace = stackalloc GameTrace[1];
         if (!pawn.IsAbleToApplySpray((IntPtr)trace) || (IntPtr)trace == IntPtr.Zero)
             return;
-        // player.EmitSound("SprayCan.Shake");
-        player.ExecuteClientCommand("play sounds/items/spraycan_shake");
+        player.EmitSound("SprayCan.Shake");
         PlayerSprayCooldownManager[player.SteamID] = Now();
         var endPos = Vector3toVector(trace->EndPos);
         var normalPos = Vector3toVector(trace->Normal);
@@ -333,8 +332,7 @@ public partial class InventorySimulator
             sprayDecal.Player = item.Def;
             sprayDecal.TintID = item.Tint;
             sprayDecal.DispatchSpawn();
-            // player.EmitSound("SprayCan.Paint");
-            player.ExecuteClientCommand("play sounds/items/spraycan_spray");
+            player.EmitSound("SprayCan.Paint");
         }
     }
 
