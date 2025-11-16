@@ -25,4 +25,3 @@ A CounterStrikeSharp plugin for integration with [cs2.zkservidores.com](https://
 ## Commands
 - **`!ws`** - Print Inventory Simulator website and refreshes players inventory.
 - **`!spray`** - Sprays players graffiti in the nearest wall if possible. Players can bind to **`T`** key using **`bind t css_spray`**.
-
